@@ -2,7 +2,7 @@ import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 // import pages
-import {BookingScreen} from '../screens';
+import {BookingScreen, MovieDetailScreen} from '../screens';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +13,7 @@ function App() {
         headerShown: false,
       }}>
       <Stack.Screen name="booking" component={BookingScreen} />
+      <Stack.Screen name="moviedetail" component={MovieDetailScreen} />
     </Stack.Navigator>
   );
 }

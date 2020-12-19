@@ -24,7 +24,7 @@ const LoginReducer = (state = INITIAL_STATE, action) => {
         ...state,
         movieListLoading: false,
         extraMovieLoading: false,
-        movieList: action.payload,
+        movieList: [...state.movieList, ...action.payload],
       };
 
     case MOVIE_LIST_API_FAILURE:

@@ -9,6 +9,7 @@ import LoaderReducer from './reducers/Loader';
 import ModalReducer from './reducers/Modal';
 import NetworkReducer from './reducers/Network';
 import MovieReducer from './reducers/Movie';
+import SeatSelectReducer from './reducers/SeatSelect';
 
 const rootReducer = combineReducers({
   login: LoginReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   modal: ModalReducer,
   network: NetworkReducer,
   movie: MovieReducer,
+  seatselect: SeatSelectReducer,
 });
 
 const Store = createStore(
