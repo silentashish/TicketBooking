@@ -12,6 +12,7 @@ import {movieApi} from '../redux/actions/Movie';
 import {useSelector, useDispatch} from 'react-redux';
 import Slider from 'rn-range-slider';
 import {ScaledSheet} from 'react-native-size-matters';
+import {showModal} from '../redux/actions/Modal';
 
 const BookingScreen = (props) => {
   const dispatch = useDispatch();
@@ -68,11 +69,25 @@ const BookingScreen = (props) => {
     );
   };
 
+  const logOut = async () => {
+    let modalConfig = {
+      title: 'Logout!',
+      message: 'Are you sure you want to logout?',
+      shouldLogout: true,
+      modalBottomMessage:
+        'You can login later with your username and password.',
+      modalImage: 'logout',
+    };
+    dispatch(showModal(modalConfig));
+  };
+
   return (
     <GenericView
       title="Booking Page"
       isBackArrow={false}
+      isExit
       loading={MovieLoading}
+      onExitHandlerPress={logOut}
       extraLoading={ExtraMovieLoading}>
       <>
         <SearchBar

@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Dimensions, Image, ScrollView} from 'react-native';
-import {GenericView, SeatLayout, SeatView, TextField} from '../components';
+import {
+  Button,
+  GenericView,
+  SeatLayout,
+  SeatView,
+  TextField,
+  Divider,
+  InputModal,
+} from '../components';
 import {ScaledSheet} from 'react-native-size-matters';
+import {useDispatch, useSelector} from 'react-redux';
+import {resetSeat} from '../redux/actions/SeatSelect';
 
 const MovieDetailScreen = (props) => {
   const data = props.route.params;
-  console.log('data is', data);
   const {
     adult,
     backdrop_path,
@@ -19,6 +28,19 @@ const MovieDetailScreen = (props) => {
     vote_average,
     vote_count,
   } = data;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetSeat());
+    };
+  }, []);
+
+  const allSeat = useSelector((state) => state.seatselect.selectedSeat);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <GenericView title={title} isBackArrow>
       <ScrollView>
@@ -61,6 +83,22 @@ const MovieDetailScreen = (props) => {
           </View>
         </View>
         <SeatLayout />
+        <Divider />
+        {allSeat.length > 0 && (
+          <>
+            <TextField>Selected Seat : {allSeat.toString()}</TextField>
+            <Divider />
+            <Button mode="outlined" onPress={() => setModalVisible(true)}>
+              {' '}
+              Book Ticket
+            </Button>
+          </>
+        )}
+        <Divider />
+        <InputModal
+          modalVisible={modalVisible}
+          closeModal={() => setModalVisible(false)}
+        />
       </ScrollView>
     </GenericView>
   );

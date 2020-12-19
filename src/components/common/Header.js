@@ -124,7 +124,11 @@ const Header = (props) => {
 
           {isExit && (
             <TouchableOpacity onPress={props.onExitHandlerPress}>
-              <Icon name="power-off" size={22} color={GlobalTheme.red} />
+              <Icon
+                name="sign-out-alt"
+                size={22}
+                color={GlobalTheme.darkBlueColor}
+              />
             </TouchableOpacity>
           )}
         </View>

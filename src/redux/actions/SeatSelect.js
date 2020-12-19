@@ -7,9 +7,8 @@ export const addSeat = (data) => {
   };
 };
 
-export const resetSeat = (data) => {
+export const resetSeat = () => {
   return {
     type: CLEAR_SELECTEd_SEAT,
-    payload: data,
   };
 };
