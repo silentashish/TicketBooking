@@ -13,7 +13,7 @@ import {GlobalTheme, Button, GenericView, Divider} from '../components';
 import {useDispatch} from 'react-redux';
 import {loginApi} from '../redux/actions/Login';
 import {DNInput} from '../components/common/DNInput';
-
+import LottieView from 'lottie-react-native';
 import {formBody} from '../utils/FormBody';
 
 const Login = (props) => {
@@ -47,10 +47,13 @@ const Login = (props) => {
   // console.warn('key ==> ', keyboard);
 
   return (
-    <GenericView modalLoading>
+    <GenericView modalLoading showHeader={false}>
       <View style={styles.appView}>
         {/* APP LOGO */}
         {/* Login Wrapper */}
+        <View style={styles.lottieView}>
+          <LottieView source={require('../assets/start.json')} autoPlay loop />
+        </View>
         <View style={styles.formWrapper}>
           {/* LOGIN FORM GOES HERE */}
           <View style={styles.textLeft}>
@@ -58,56 +61,57 @@ const Login = (props) => {
           </View>
 
           <Divider medium />
+          <View style={{width: '90%', alignSelf: 'center'}}>
+            <DNInput
+              onSubmitEditing={() => {
+                input.current.focus();
+              }}
+              left={
+                <TextInput.Icon
+                  style={{minWidth: 50}}
+                  name="account"
+                  color={GlobalTheme.darkBlueColor}
+                />
+              }
+              blurOnSubmit={false}
+              label="Email"
+              icon="user"
+              // style={styles.mt30}
+              title="Email"
+              value={email}
+              hasError={emailValidate}
+              onChangeText={(email) => {
+                setEmail(email);
+                setEmailValidate(false);
+              }}
+            />
 
-          <DNInput
-            onSubmitEditing={() => {
-              input.current.focus();
-            }}
-            left={
-              <TextInput.Icon
-                style={{minWidth: 50}}
-                name="account"
-                color={GlobalTheme.darkBlueColor}
-              />
-            }
-            blurOnSubmit={false}
-            label="Email"
-            icon="user"
-            // style={styles.mt30}
-            title="Email"
-            value={email}
-            hasError={emailValidate}
-            onChangeText={(email) => {
-              setEmail(email);
-              setEmailValidate(false);
-            }}
-          />
+            <Divider big />
 
-          <Divider big />
-
-          <DNInput
-            mref={input}
-            left={
-              <TextInput.Icon name="lock" color={GlobalTheme.darkBlueColor} />
-            }
-            label="Password"
-            isPassword
-            icon="lock"
-            // style={styles.mt20}
-            secureTextEntry
-            title="Password"
-            value={password}
-            hasError={passwordValidate}
-            onChangeText={(password) => {
-              setPassword(password);
-              setPasswordValidate(false);
-            }}
-          />
-          <TouchableOpacity
+            <DNInput
+              mref={input}
+              left={
+                <TextInput.Icon name="lock" color={GlobalTheme.darkBlueColor} />
+              }
+              label="Password"
+              isPassword
+              icon="lock"
+              // style={styles.mt20}
+              secureTextEntry
+              title="Password"
+              value={password}
+              hasError={passwordValidate}
+              onChangeText={(password) => {
+                setPassword(password);
+                setPasswordValidate(false);
+              }}
+            />
+          </View>
+          {/* <TouchableOpacity
             onPress={() => _toast()}
             style={{alignSelf: 'flex-end', right: '5%', marginTop: '3%'}}>
             <Subheading>Forgot Password?</Subheading>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Button
             margined
             mode={'outlined'}
@@ -123,6 +127,11 @@ const Login = (props) => {
   );
 };
 const styles = StyleSheet.create({
+  lottieView: {
+    alignSelf: 'center',
+    width: '60%',
+    height: 300,
+  },
   bgStyle: {
     height: '100%',
     width: '100%',
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'space-around',
-    backgroundColor: GlobalTheme.whiteColor,
+    backgroundColor: GlobalTheme.background,
   },
 
   textLeft: {
@@ -156,7 +165,7 @@ const styles = StyleSheet.create({
   formWrapper: {
     width: '100%',
     alignItems: 'center',
-    flex: 0.7,
+    // flex: 0.7,
   },
   footerLogoWrapper: {
     // marginTop: '30%',

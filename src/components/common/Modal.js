@@ -96,15 +96,15 @@ const AlertModal = () => {
   let image = null;
   switch (modalImage) {
     case 'network':
-      image = null;
+      image = require('../../assets/internetconnection.png');
       break;
 
     case 'logout':
-      image = null;
+      image = require('../../assets/logout.png');
       break;
 
     case 'fingerprint':
-      image = null;
+      image = 'fingerprint';
       break;
 
     case 'notification':

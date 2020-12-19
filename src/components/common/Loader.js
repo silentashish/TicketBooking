@@ -4,13 +4,18 @@ import {View, Image, Modal, StyleSheet, ActivityIndicator} from 'react-native';
 import {useSelector} from 'react-redux';
 import {ScaledSheet} from 'react-native-size-matters';
 import {GlobalTheme} from '../theme';
+import LottieView from 'lottie-react-native';
 
 const Loader = ({modalLoading}) => {
   const loaderState = useSelector((state) => state.loader.presentLoader);
   const LoadingPart = () => (
     <View style={styles.loaderView(modalLoading)}>
       <View style={styles.loaderStyle}>
-        <ActivityIndicator size={40} color={GlobalTheme.darkBlueColor} />
+        <LottieView
+          source={require('../../assets/loading.json')}
+          autoPlay
+          loop
+        />
       </View>
     </View>
   );
@@ -32,11 +37,11 @@ const styles = ScaledSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: modalLoading ? 'rgba(0,0,0,0.35)' : null,
+    backgroundColor: modalLoading ? 'rgba(0,0,0,0.55)' : null,
   }),
   loaderStyle: {
-    width: '50@s',
-    height: '50@s',
+    width: '150@s',
+    height: '150@s',
     // backgroundColor: '#FFF',
     // elevation: 20,
     borderRadius: GlobalTheme.viewRadius,

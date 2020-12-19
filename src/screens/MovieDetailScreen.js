@@ -8,10 +8,12 @@ import {
   TextField,
   Divider,
   InputModal,
+  GlobalTheme,
 } from '../components';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {resetSeat} from '../redux/actions/SeatSelect';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const MovieDetailScreen = (props) => {
   const data = props.route.params;
@@ -45,29 +47,64 @@ const MovieDetailScreen = (props) => {
     <GenericView title={title} isBackArrow>
       <ScrollView>
         <Image
-          resizeMode={'contain'}
+          resizeMode={'cover'}
           source={{
             uri: `https://image.tmdb.org/t/p/w780${backdrop_path}`,
           }}
-          style={{width: Dimensions.get('window').width, height: 300}}
+          style={{width: Dimensions.get('window').width, height: 250}}
         />
-        <Image
-          resizeMode={'cover'}
-          source={{
-            uri: `https://image.tmdb.org/t/p/w780${poster_path}`,
-          }}
-          style={{width: Dimensions.get('window').width / 2 - 10, height: 300}}
-        />
-        <TextField>{title}</TextField>
+        <Divider small />
+        <View style={styles.mvInfo}>
+          <Image
+            resizeMode={'cover'}
+            source={{
+              uri: `https://image.tmdb.org/t/p/w780${poster_path}`,
+            }}
+            style={{
+              width: Dimensions.get('window').width / 2 - 10,
+              height: 300,
+              marginLeft: 8,
+              borderRadius: 10,
+              elevation: 7,
+            }}
+          />
+          <View style={styles.mInfo}>
+            <TextField bold color={GlobalTheme.fontColor} title>
+              {title}
+            </TextField>
+            <Divider small />
+            <View style={styles.rate}>
+              <Icon name="star" size={22} color={'#ffd700'} />
+              <Divider horizontal small />
+              <TextField regular>
+                {vote_average}/{vote_count}
+              </TextField>
+            </View>
 
-        <TextField>{overview}</TextField>
-        <TextField>{release_date}</TextField>
+            <Divider small />
 
-        <TextField>
-          {vote_average}/{vote_count}
-        </TextField>
-        <TextField>{adult ? '18+' : ''}</TextField>
-        <TextField bold>Seat Booking</TextField>
+            <View style={styles.rate}>
+              <Icon name="calendar-today" size={17} color={'#000'} />
+              <Divider horizontal small />
+              <TextField secondarybody>{release_date}</TextField>
+            </View>
+          </View>
+        </View>
+        <Divider medium />
+        <View style={styles.contain}>
+          <TextField secondarybody style={{textAlign: 'justify'}}>
+            {overview}
+          </TextField>
+        </View>
+
+        <Divider medium />
+
+        <View style={styles.contain}>
+          <TextField bold>Seat Booking</TextField>
+        </View>
+
+        <Divider medium />
+
         <View style={styles.info}>
           <View style={styles.item}>
             <SeatView name="S1" green />
@@ -82,17 +119,20 @@ const MovieDetailScreen = (props) => {
             <TextField secondarybody>Booked</TextField>
           </View>
         </View>
+
+        <Divider medium />
+
         <SeatLayout />
-        <Divider />
+        <Divider medium />
         {allSeat.length > 0 && (
-          <>
+          <View style={styles.contain}>
             <TextField>Selected Seat : {allSeat.toString()}</TextField>
             <Divider />
             <Button mode="outlined" onPress={() => setModalVisible(true)}>
               {' '}
               Book Ticket
             </Button>
-          </>
+          </View>
         )}
         <Divider />
         <InputModal
@@ -115,6 +155,22 @@ const styles = ScaledSheet.create({
     width: '20%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  mvInfo: {
+    flexDirection: 'row',
+  },
+  mInfo: {
+    justifyContent: 'center',
+    // alignItems: 'center',
+    flex: 1,
+    paddingLeft: 20,
+  },
+  rate: {
+    flexDirection: 'row',
+  },
+  contain: {
+    width: '95%',
+    alignSelf: 'center',
   },
 });
 

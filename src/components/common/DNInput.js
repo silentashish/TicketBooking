@@ -63,7 +63,7 @@ const DNInput = (props) => {
 
 const styles = StyleSheet.create({
   inputWrapper: {
-    width: '90%',
+    width: '100%',
   },
   inputRow: {
     flexDirection: 'row',
@@ -71,10 +71,10 @@ const styles = StyleSheet.create({
   },
   textInputStyle: (multiline = false, textAlignVertical = false, hasError) => ({
     fontSize: 18,
-    width: '90%',
+    width: '100%',
     borderColor: hasError == true ? 'red' : GlobalTheme.black,
     color: 'rgba(65, 65, 65,0.65)',
-    backgroundColor: GlobalTheme.white,
+    backgroundColor: GlobalTheme.background,
     fontFamily: GlobalTheme.fontRegular,
     textAlignVertical: textAlignVertical ? 'top' : 'center',
   }),

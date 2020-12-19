@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Modal} from 'react-native';
+import {View, Text, Modal, ToastAndroid} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {useSelector} from 'react-redux';
 import {Button, Divider, DNInput, TextField} from '../common';
@@ -22,36 +22,54 @@ const InputModal = ({modalVisible, closeModal}) => {
       <View style={styles.container}>
         <View style={styles.modalContain}>
           <Divider medium />
-          <TextField bold color={GlobalTheme.darkBlueColor}>
+          <TextField bold color={GlobalTheme.darkBlueColor} title>
             Booking Form
           </TextField>
+
+          <Divider small />
+
           {allSeat.map((item, id) => (
-            <DNInput
-              left={
-                <TextInput.Icon
-                  style={{minWidth: 50}}
-                  name="account"
-                  color={GlobalTheme.darkBlueColor}
-                />
-              }
-              blurOnSubmit={false}
-              label={`Full Name for seat ${item}`}
-              icon="user"
-              // style={styles.mt30}
-              title="Email"
-              value={allInputName[id]}
-              onChangeText={(email) => {
-                let arr = allInputName;
-                arr[id] = email;
-                setAllInputName(arr);
-              }}
-            />
+            <View
+              style={{
+                width: '90%',
+                justifyContent: 'center',
+                alignSelf: 'center',
+              }}>
+              <DNInput
+                left={
+                  <TextInput.Icon
+                    style={{minWidth: 50}}
+                    name="account"
+                    color={GlobalTheme.darkBlueColor}
+                  />
+                }
+                blurOnSubmit={false}
+                label={`Customer name for seat ${item}`}
+                icon="user"
+                // style={styles.mt30}
+                title="Email"
+                value={allInputName[id]}
+                onChangeText={(email) => {
+                  let arr = allInputName;
+                  arr[id] = email;
+                  setAllInputName(arr);
+                }}
+              />
+
+              <Divider medium />
+            </View>
           ))}
           <Button
             mode="outlined"
             onPress={() => {
-              closeModal();
-              navigation.navigate('thankyou', {data: {allInputName, allSeat}});
+              if (allInputName.length === allSeat.length) {
+                closeModal();
+                navigation.navigate('thankyou', {
+                  data: {allInputName, allSeat},
+                });
+              } else {
+                ToastAndroid.show('Enter All Customer Name', ToastAndroid.LONG);
+              }
             }}>
             {' '}
             Submit
@@ -73,7 +91,7 @@ const styles = ScaledSheet.create({
   modalContain: {
     backgroundColor: GlobalTheme.white,
     // height: '40%',
-    width: '90%',
+    // width: '90%',
     borderRadius: GlobalTheme.viewRadius,
     paddingHorizontal: '15@ms',
   },

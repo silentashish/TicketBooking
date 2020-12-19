@@ -28,7 +28,7 @@ const GlobalTheme = {
   borderColor: '#666666',
 
   // DN Student
-  background: '#F1F9FF',
+  background: '#fafafa',
 
   materialBrown: '#e8f0f5',
 
