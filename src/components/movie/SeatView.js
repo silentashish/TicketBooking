@@ -10,10 +10,10 @@ const greenSeat = require('../../assets/green.png');
 const blueSeat = require('../../assets/blue.png');
 const redSeat = require('../../assets/red.png');
 
-const SeatView = ({name, red, blue, green}) => {
+const SeatView = ({name, red, blue, green, notouch}) => {
   const dispatch = useDispatch();
   const handlePress = () => {
-    if (!red) {
+    if (!red && !notouch) {
       dispatch(addSeat(name));
     }
   };

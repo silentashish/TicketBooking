@@ -16,7 +16,7 @@ import {resetSeat} from '../redux/actions/SeatSelect';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const MovieDetailScreen = (props) => {
-  const data = props.route.params;
+  const data = props.route.params ?? {};
   const {
     adult,
     backdrop_path,
@@ -107,15 +107,15 @@ const MovieDetailScreen = (props) => {
 
         <View style={styles.info}>
           <View style={styles.item}>
-            <SeatView name="S1" green />
+            <SeatView name="S1" green notouch />
             <TextField secondarybody>Selected</TextField>
           </View>
           <View style={styles.item}>
-            <SeatView name="S1" blue />
+            <SeatView name="S1" blue notouch />
             <TextField secondarybody>Available</TextField>
           </View>
           <View style={styles.item}>
-            <SeatView name="S1" red />
+            <SeatView name="S1" red notouch />
             <TextField secondarybody>Booked</TextField>
           </View>
         </View>
